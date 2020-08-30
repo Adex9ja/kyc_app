@@ -105,7 +105,7 @@ class _DashBoardActivity extends State<DashBoardActivity>{
               StreamBuilder<List<BankEntity>>(
                 stream: AppDatabase.getInstance().taskDao.getBankList(),
                 builder: (context, snapshot){
-                  if(snapshot.hasData && snapshot.data != null){
+                  if(snapshot.hasData && snapshot.data != null && snapshot.data.length > 0){
                     _bankList = _bankList == null ? snapshot.data : _bankList;
                     return Container(
                       child: ListView.separated(
@@ -134,7 +134,7 @@ class _DashBoardActivity extends State<DashBoardActivity>{
                           return SizedBox( height: 1, width: MediaQuery.of(context).size.width, child: Container( color: colorLightGrey,),);
                         },
                       ),
-                      height: 500,
+                      height: 450,
                       width: MediaQuery.of(context).size.width,
                     );
                   }
