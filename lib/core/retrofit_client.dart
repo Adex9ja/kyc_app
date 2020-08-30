@@ -15,7 +15,7 @@ class RetrofitClientInstance{
     _dio.options.headers["accept"] = "application/json";
     _dio.options.headers["mid"] = mid;
     _dio.options.headers["key"] = key;
-    _dio.options.connectTimeout = (3 * 60 * 1000);
+    _dio.options.connectTimeout = (1 * 60 * 1000);
     _dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
     _client = GetDataService(_dio, baseUrl:  Const.BASE_URL );
   }

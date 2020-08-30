@@ -1,16 +1,11 @@
-# flutter_starter_app
+# kyc_app
 
-A new Flutter application.
+ A simple app that helps merchant to verify their client using Glade API. For more information about the verification APIs, visit [Glade.ng Official Documentaion](https://developer.glade.ng/api/#getting-started)
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
+To get started, clone the project and perform the following operations
 
-A few resources to get you started if this is your first Flutter project:
+1. Run pub get
+2. Modify config.json file under assets folder in you project directory with your merchant API key and ID from [Glade.ng](https://dashboard.glade.ng/register)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
