@@ -59,8 +59,7 @@ class _MyApp extends State<MyApp>{
 
   Future<bool> isFirstTime() async {
     await AppDatabase.init();
-    Secret secret = await SecretLoader(secretPath: "assets/config.json").load();
-    RetrofitClientInstance.getInstance().reset(secret.merchantID, secret.merchantKey);
+    RetrofitClientInstance.getInstance().reset(Const.merchantID, Const.merchantKey);
     SharedPreferences pref = await SharedPreferences.getInstance();
     return pref.getBool(Const.FIRST_TIME) ?? true;
   }

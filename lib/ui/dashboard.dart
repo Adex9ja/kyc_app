@@ -37,8 +37,7 @@ class _DashBoardActivity extends State<DashBoardActivity>{
   @override
   void initState() {
     super.initState();
-    var request = {"inquire": "banks"};
-    RetrofitClientInstance.getInstance().getDataService().getBankList(request).then(bankListResponse).catchError(onError);
+    downloadBanks();
   }
 
   @override
@@ -134,12 +133,24 @@ class _DashBoardActivity extends State<DashBoardActivity>{
                           return SizedBox( height: 1, width: MediaQuery.of(context).size.width, child: Container( color: colorLightGrey,),);
                         },
                       ),
-                      height: 450,
+                      height: MediaQuery.of(context).size.height - 250,
                       width: MediaQuery.of(context).size.width,
                     );
                   }
                   else
-                    return Center( child:  CircularProgressIndicator(),);
+                    return Container(
+                      height: 300,
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Icon(Icons.not_interested, size: 124, color: colorPrimary,),
+                            mediumSize,
+                            FlatButton.icon(onPressed: () => reloadBanks(), icon: Icon(Icons.refresh), label: Text("Empty bank list...Tap here to reload", style: style,)),
+                          ],
+                        )
+                      ),
+                    );
                 },
               ),
             ],
@@ -314,6 +325,7 @@ class _DashBoardActivity extends State<DashBoardActivity>{
   }
 
   FutureOr bankListResponse(HttpResponse value) {
+    loadingSuccessful(null);
     if(value.response.statusCode == 200){
       var data = value.data as Map;
       _bankList = data.entries.map((e) => BankEntity(e.key, e.value)).toList();
@@ -365,6 +377,16 @@ class _DashBoardActivity extends State<DashBoardActivity>{
     _bvnForm.currentState.reset();
     _bankList.forEach((element) => element.selected = false);
     setState(() {});
+  }
+
+  reloadBanks() async {
+    await startLoading(context, "Fetching available banks...");
+    downloadBanks();
+  }
+
+  void downloadBanks() {
+    var request = {"inquire": "banks"};
+    RetrofitClientInstance.getInstance().getDataService().getBankList(request).then(bankListResponse).catchError(onError);
   }
 }
 
